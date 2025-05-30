@@ -52,7 +52,7 @@
                     <span class="hidden lg:block absolute rounded-full bg-white border border-black aspect-square py-1 px-2 text-[10px] -right-3 top-1">1</span>
                 </i>
 
-                <div v-show="showPopup" class="absolute py-10 px-[52px] flex flex-col gap-10 shadow-lg right-0 top-6 z-1 bg-white text-center w-[500px]">
+                <div v-show="showPopup" class="absolute py-10 px-[52px] flex flex-col gap-10 shadow-lg right-6 top-6 z-1 bg-white text-center w-[400px] lg:w-[500px]">
                     <div class="flex flex-col gap-4 relative">
                     <i @click="togglePopup" class="fas text-xl fa-times absolute -top-2 -right-6 cursor-pointer"></i>
                     <p class="montserrat-700">Language</p>
@@ -166,37 +166,37 @@
                 <p>© 2025 Jan Kaláb. Všechna práva vyhrazena.</p>
                 <div class="flex gap-2">
                     Created by
-                    <img src="images/monster_media.png" loading="lazy">
+                    <img src="images/monster_media.png" alt="Monster Media, s. r. o." loading="lazy">
                     Monster Media, s. r. o.
                 </div>
             </div>
         </div>
     </div>
-</body>
-<script>
-    const { createApp } = Vue;
-    const app = createApp({
-        data(){
-            return {
-                showPopup: false,
-                newsletter_email: null
-            }
-        },
-        methods: {
-            togglePopup(){
-                this.showPopup = !this.showPopup;
+    <script>
+        const { createApp } = Vue;
+        const app = createApp({
+            data(){
+                return {
+                    showPopup: false,
+                    newsletter_email: null
+                }
             },
-            submitNewsletter(){
-                if(this.newsletter_email != null){
+            methods: {
+                togglePopup(){
+                    this.showPopup = !this.showPopup;
+                },
+                submitNewsletter(){
+                    if(this.newsletter_email != null){
 
+                    }
                 }
             }
-        }
-    });
+        });
 
 
-    // Carousel
-    app.component("x-carousel", Carousel);
+        // Carousel
+        app.component("x-carousel", Carousel);
 
-    app.mount("#app");
-</script>
+        app.mount("#app");
+    </script>
+</body>
