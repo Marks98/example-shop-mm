@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Shop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        .montserrat-900 {
+             font-family: "Montserrat", sans-serif;
+             font-optical-sizing: auto;
+             font-weight: 900;
+             font-style: normal;
+         }
+        .montserrat-800 {
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 800;
+            font-style: normal;
+        }
+        .montserrat-700 {
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+        }
+        .montserrat-400 {
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
+    <script src="components/carousel.js"></script>
+</head>
+
+<body>
+    <div id="app" class="bg-white montserrat-400 text-lg">
+        <!-- Header -->
+        <header class="flex items-center justify-between px-5 lg:px-[47px] py-3 lg:py-9 container mx-auto mb-4 lg:mb-0">
+            <img src="images/jan_kalab_logo.png" class="h-[14px] lg:h-[19px]" alt="Jan Kalab Logo" loading="lazy">
+            <img src="images/logo.png" class="h-[52px] lg:h-[72px]" alt="Logo" loading="lazy">
+            <div class="flex items-center gap-4 text-lg relative">
+                <p @click="togglePopup" class="montserrat-900 cursor-pointer"
+                    :class="{'text-black': !this.showPopup, 'text-gray-500': this.showPopup}">EN/Kč</p>
+                <i class="fas fa-shopping-cart relative">
+                    <span class="hidden lg:block absolute rounded-full bg-white border border-black aspect-square py-1 px-2 text-[10px] -right-3 top-1">1</span>
+                </i>
+
+                <div v-show="showPopup" class="absolute py-10 px-[52px] flex flex-col gap-10 shadow-lg right-0 top-6 z-1 bg-white text-center w-[500px]">
+                    <div class="flex flex-col gap-4 relative">
+                    <i @click="togglePopup" class="fas text-xl fa-times absolute -top-2 -right-6 cursor-pointer"></i>
+                    <p class="montserrat-700">Language</p>
+                    <select
+                        class="border py-4 px-5"
+                        name="language"
+                        id="language">
+                        <option>United states</option>
+                        <option selected>Česká republika</option>
+                    </select>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <p class="montserrat-700">Currency</p>
+                        <select
+                                class="border py-4 px-5"
+                                name="currency"
+                                id="currency">
+                            <option>Euro</option>
+                            <option selected>Česká koruna</option>
+                        </select>
+                    </div>
+                    <button class="rounded-xl bg-black text-white py-3 px-4 cursor-pointer hover:bg-white hover:text-black border border-black"
+                        @click="togglePopup">
+                        Shop now
+                    </button>
+                </div>
+            </div>
+        </header>
+        <!-- Carousel -->
+        <x-carousel></x-carousel>
+        <!-- Product -->
+        <div class="container mx-auto flex flex-col mt-10 gap-10 px-4 lg:px-0">
+            <div class="flex flex-col lg:flex-row items-center mx-auto">
+                <div class="w-full lg:w-1/2 relative flex justify-center lg:justify-end">
+                    <img src="images/figure.png" class="h-[600px]" alt="produkt" loading="lazy">
+                    <svg class="absolute top-5 right-5 fill-white hover:fill-black w-10 h-10 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M304 192v32c0 6.6-5.4 12-12 12h-56v56c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-56h-56c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h56v-56c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v56h56c6.6 0 12 5.4 12 12zm201 284.7L476.7 505c-9.4 9.4-24.6 9.4-33.9 0L343 405.3c-4.5-4.5-7-10.6-7-17V372c-35.3 27.6-79.7 44-128 44C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208c0 48.3-16.4 92.7-44 128h16.3c6.4 0 12.5 2.5 17 7l99.7 99.7c9.3 9.4 9.3 24.6 0 34zM344 208c0-75.2-60.8-136-136-136S72 132.8 72 208s60.8 136 136 136 136-60.8 136-136z"/></svg>
+                </div>
+                <div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start gap-7 mx-6">
+                    <h2 class="montserrat-700 text-[40px]">Figure</h2>
+                    <p>
+                        A figurine by the artist Jan Kaláb himself, created in 3D printing, hand-sprayed, in an original box.
+                    </p>
+                    <h3 class="montserrat-800 text-[32px]">900 CZK</h3>
+                    <button class="bg-black text-white rounded-xl py-3 px-4 cursor-pointer hover:bg-white hover:text-black border border-black">
+                        Add to cart
+                    </button>
+                </div>
+            </div>
+            <div class="flex flex-col gap-10">
+                <h2 class="montserrat-700 text-[40px]">Don’t miss the next drop</h2>
+                <div class="flex flex-col lg:flex-row items-center justify-between">
+                    <div class="flex flex-col">
+                        <p class="text-[22px]">
+                            Subscribe to our newletter and receive notinotification bout new relases.
+                        </p>
+                        <p class="text-[22px]">
+                         You can unsubscribe any time.
+                        </p>
+                    </div>
+                    <form class="w-full lg:w-auto flex justify-center mt-4 lg:mt-0" @submit.prevent="submitNewsletter">
+                        <input
+                            class="rounded-l-xl border border-black py-2 px-5"
+                            placeholder="your@email.com"
+                            id="newsletter_email"
+                            required
+                            name="newsletter_email">
+                        <button
+                            type="submit"
+                            class="rounded-r-xl bg-black text-white py-2 px-5 cursor-pointer hover:bg-white hover:text-black border-y border-r border-black">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+                <div>
+                    <div class="flex flex-col lg:flex-row items-center justify-between">
+                        <div class="flex flex-col lg:flex-row gap-4 lg:gap-10 justify-between items-center">
+                            <div class="flex gap-10">
+                                <a href="">
+                                    <i class="fab fa-instagram text-xl"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fab fa-facebook-f text-xl"></i>
+                                </a>
+                                <a href="" class="text-center lg:text-left">
+                                    <i class="fab fa-youtube text-xl"></i>
+                                </a>
+                            </div>
+                            <div class="flex items-center justify-between gap-10">
+                                <a href="jankalab.com" class="hover:underline">
+                                    jankalab.com
+                                </a>
+                                <a href="mailto:studio@onepoint.cz" class="hover:underline">
+                                    studio@onepoint.cz
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex gap-10 mt-4 lg:mt-0">
+                            <a href="" class="hover:underline">
+                                Terms and Conditions
+                            </a>
+                            <a href="" class="hover:underline">
+                                GDPR
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-neutral-100 mt-4">
+            <div class="container mx-auto py-[9px] flex flex-col lg:flex-row gap-4 items-center justify-between">
+                <p>© 2025 Jan Kaláb. Všechna práva vyhrazena.</p>
+                <div class="flex gap-2">
+                    Created by
+                    <img src="images/monster_media.png" loading="lazy">
+                    Monster Media, s. r. o.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const { createApp } = Vue;
+    const app = createApp({
+        data(){
+            return {
+                showPopup: false,
+                newsletter_email: null
+            }
+        },
+        methods: {
+            togglePopup(){
+                this.showPopup = !this.showPopup;
+            },
+            submitNewsletter(){
+                if(this.newsletter_email != null){
+
+                }
+            }
+        }
+    });
+
+
+    // Carousel
+    app.component("x-carousel", Carousel);
+
+    app.mount("#app");
+</script>
