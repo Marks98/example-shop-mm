@@ -8,7 +8,7 @@ const Carousel = Vue.defineComponent = ({
                 },
                 {
                     image: 'images/banner_2.png',
-                    text: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
+                    text: 'Lorem ipsum dolor sit amet,<br> consectetuer'
                 }
             ],
             index: 0,
@@ -41,8 +41,8 @@ const Carousel = Vue.defineComponent = ({
     },
     template: `
         <div class="w-full px-[60px] h-[400px]" :class="this.imageUrl">
-            <div class="container mx-auto flex items-center justify-center lg:justify-end flex-col gap-10 pt-16 pb-8 h-full">
-                <h1 class="text-white text-[40px] lg:text-[64px] montserrat-800 text-center w-full flex justify-center" v-html="values[index].text"></h1>
+            <div class="container mx-auto flex items-center justify-center lg:justify-end flex-col gap-10 py-16 h-full">
+                <h1 class="text-white text-[48px] lg:text-[64px] montserrat-800 text-center w-full flex justify-center" v-html="values[index].text"></h1>
                 <div class="hidden sm:flex items-center gap-4">
                     <i class="fas fa-circle cursor-pointer"
                     v-for="value,id in values"
